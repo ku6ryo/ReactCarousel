@@ -1,12 +1,21 @@
 
+.frame {
+  background-color: black;
+  margin: 0 auto;
+  min-height: 100vh;
+  max-width: 800px;
+}
+
 .container0 {
   left: 200px;
   position: relative;
   width: 200px;
+  background-color: white;
 
   .item0 {
     background-color: red;
     border-radius: 4px;
+    height: 200px;
     width: 100%;
   }
 }

@@ -1,13 +1,21 @@
 
-
 .frame {
   position: relative;
   width: 100%;
   overflow: hidden;
 }
 
+.sliderPadding {
+  position: relative;
+}
+
 .slider {
   display: grid;
   position: relative;
-  width: 300%;
+
+  .item {
+    .buffer {
+      margin: 0 4px
+    }
+  }
 }
