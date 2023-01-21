@@ -10,19 +10,17 @@ function App() {
   return (
     <div className={style.frame}>
       <h1>Basic</h1>
-      <div className={style.container0}>
-        <CarouselBase
-          slideTime={500}
-          itemsPerPage={2}
-          index={index0}
-          rightExposure="10%"
-          leftExposure="10%"
-        >
-          <div className={style.item0} style={{ background: "red"}}></div>
-          <div className={style.item0} style={{ background: "blue"}}></div>
-          <div className={style.item0} style={{ background: "yellow"}}></div>
-        </CarouselBase>
-      </div>
+      <CarouselBase
+        slideTime={500}
+        itemsPerPage={2}
+        index={index0}
+        rightExposure="10%"
+        leftExposure="10%"
+      >
+        <div className={style.item0} style={{ background: "red", height: "100px"}} />
+        <div className={style.item0} style={{ background: "blue", height: "100px"}} />
+        <div className={style.item0} style={{ background: "yellow", height: "100px"}} />
+      </CarouselBase>
       <div>
         <button onClick={() => setIndex0((v) => v - 2)}>{"<"}</button>
         <button onClick={() => setIndex0((v) => v + 2)}>{">"}</button>

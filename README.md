@@ -9,5 +9,32 @@ Most of carousel UI libarries are usually difficult to customize the UI elements
 # How to use
 Please check files in `src/CarouselBase` and examples in `App.tsx`. You can copy the files of `CarouselBase` component to your project. I do not have time to make a npm module to share this widely.
 
+```typescript
+function YourComponent () {
+  const [index, setIndex] = useState(0)
+  return (
+    <>
+      <CarouselBase
+        slideTime={500}
+        itemsPerPage={2}
+        index={index}
+        rightExposure="10%"
+        leftExposure="10%"
+      >
+        {/* You need to set the height of items by CSS. */}
+        <div style={{ background: "red", height: "100px" }} />
+        <div style={{ background: "blue", height: "100px" }} />
+        <div style={{ background: "yellow", height: "100px" }} />
+      </CarouselBase>
+      {/* You can use your components as arrows */}
+      <div>
+        <button onClick={() => setIndex((v) => v - 2)}>{"<"}</button>
+        <button onClick={() => setIndex((v) => v + 2)}>{">"}</button>
+      </div>
+    </>
+  )
+}
+```
+
 # Limitation
 The width of each item in a carousel must be the same.
