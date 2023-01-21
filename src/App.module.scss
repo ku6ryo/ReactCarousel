@@ -19,7 +19,6 @@
 
 .container1 {
   position: relative;
-  background-color: white;
 
   .item1 {
     border-radius: 4px;
@@ -42,4 +41,10 @@
       right: 0;
     }
   }
+}
+
+.item2 {
+  border-radius: 4px;
+  height: 200px;
+  width: 100%;
 }

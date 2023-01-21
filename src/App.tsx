@@ -2,6 +2,7 @@ import { CarouselBase } from "./CarouselBase"
 import style from "./App.module.scss"
 import { useState } from "react"
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi"
+import { AutoPagingCarousel } from "./AutoPagingCarousel"
 
 function App() {
   const [index0, setIndex0] = useState(0)
@@ -57,6 +58,13 @@ function App() {
           </button>
         </div>
       </div>
+      <h1>Auto paging</h1>
+      <AutoPagingCarousel interval={1000}>
+        <div className={style.item2} style={{ background: "red"}}></div>
+        <div className={style.item2} style={{ background: "blue"}}></div>
+        <div className={style.item2} style={{ background: "yellow"}}></div>
+        <div className={style.item2} style={{ background: "limegreen"}}></div>
+      </AutoPagingCarousel>
     </div>
   )
 }
