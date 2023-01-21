@@ -3,22 +3,27 @@ import style from "./App.module.scss"
 import { useState } from "react"
 
 function App() {
-  const [page, setPage] = useState(0)
   const [index, setIndex] = useState(0)
 
   const onNext = () => {
-    setIndex(index + 1)
+    setIndex(index + 2)
   }
   const onPrev = () => {
-    setIndex(index - 1)
+    setIndex(index - 2)
   }
   return (
     <div className={style.frame}>
       <div className={style.container0}>
-        <CarouselBase slideTime={500} itemsPerPage={1} index={index}
-          rightExposure="20%"
+        <CarouselBase
+          slideTime={500}
+          itemsPerPage={2}
+          index={index}
+          rightExposure="10%"
+          leftExposure="10%"
         >
           <div className={style.item0} style={{ background: "red"}}>1</div>
+          <div className={style.item0} style={{ background: "blue"}}>2</div>
+          <div className={style.item0} style={{ background: "yellow"}}>3</div>
         </CarouselBase>
       </div>
       <div>

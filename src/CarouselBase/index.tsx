@@ -1,6 +1,5 @@
-import { MouseEventHandler, ReactElement, useEffect, useMemo, useRef, useState, } from "react"
+import { ReactElement, useEffect, useMemo, useRef, useState, } from "react"
 import style from "./style.module.scss"
-import classnemas from "classnames"
 
 type Props = {
   children?: ReactElement[] | ReactElement
@@ -12,8 +11,8 @@ type Props = {
 }
 
 function extractPageItems(mainIndex: number, items: ReactElement[]) {
-  const startIndex = mainIndex - items.length
-  const numToExtract = items.length * 3
+  const startIndex = mainIndex - items.length - 1
+  const numToExtract = items.length * 3 + 2
   let extracted: ReactElement[] = []
   for (let i = startIndex; i < startIndex + numToExtract; i++) {
     let index = i % items.length
@@ -39,15 +38,14 @@ export function CarouselBase({
 
   const sliderRef = useRef<HTMLDivElement | null>(null)
   const [sliding, setSliding] = useState(false)
-  const [prevPage, setPrevPage] = useState(0)
   const [prevIndex, setPrevIndex] = useState(0)
 
   const numChildren = useMemo(() => {
     if (!children) return 0
     return Array.isArray(children) ? children.length : 1
   }, [children])
-  
-  const extractChildren = () => {
+
+  const items = useMemo(() => {
     if (!children) {
       return []
     }
@@ -56,11 +54,7 @@ export function CarouselBase({
     } else {
       return extractPageItems(prevIndex, [children])
     }
-  }
-
-  const items = useMemo(() => {
-    return extractChildren()
-  }, [extractChildren, prevPage])
+  }, [children, prevIndex])
 
   const widthPerItem = 100 / items.length
 
@@ -78,7 +72,7 @@ export function CarouselBase({
         setSliding(false)
       }, slideTime)
     } else {
-      setPrevPage(index)
+      setPrevIndex(index)
     }
   }, [index])
   
@@ -94,7 +88,7 @@ export function CarouselBase({
         <div
           className={style.slider}
           style={{
-            left: `calc(${-100 * numChildren / itemsPerPage}%`,
+            left: `calc(${-100 / itemsPerPage * (numChildren + 1)}%`,
             gridTemplateColumns: Array(items.length).fill(null).map(() => "1fr").join(" "),
             transition: `${slideTime}s`,
             width: `${items.length / itemsPerPage * 100}%`
