@@ -1,15 +1,6 @@
 import { ReactElement, useEffect, useMemo, useRef, useState, } from "react"
 import style from "./style.module.scss"
 
-type Props = {
-  children?: ReactElement[] | ReactElement
-  itemsPerPage: number
-  slideTime: number
-  index: number
-  leftExposure?: string
-  rightExposure?: string
-}
-
 function extractPageItems(mainIndex: number, items: ReactElement[]) {
   const startIndex = mainIndex - items.length - 1
   const numToExtract = items.length * 3 + 2
@@ -24,6 +15,24 @@ function extractPageItems(mainIndex: number, items: ReactElement[]) {
   return extracted
 }
 
+type Props = {
+  children?: ReactElement[] | ReactElement
+  itemsPerPage: number
+  // how much it takes to slide to the next page.
+  slideTime: number
+  // Item index.
+  index: number
+  // How much the next item is exposed.
+  leftExposure?: string
+  // How much the previous item is exposed.
+  rightExposure?: string
+  // Fires on sliding is complete
+  onSlideComplete?: (index: number) => void
+}
+
+/**
+ * Base component to make a carousel.
+ */
 export function CarouselBase({
   children,
   itemsPerPage,
@@ -31,6 +40,7 @@ export function CarouselBase({
   index,
   leftExposure,
   rightExposure,
+  onSlideComplete,
 }: Props) {
 
   const leftEx = useMemo(() => leftExposure || "0", [leftExposure])
@@ -70,9 +80,11 @@ export function CarouselBase({
         }
         setPrevIndex(index)
         setSliding(false)
+        onSlideComplete?.(index)
       }, slideTime)
     } else {
       setPrevIndex(index)
+      onSlideComplete?.(index)
     }
   }, [index])
   

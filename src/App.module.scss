@@ -1,21 +1,46 @@
 
 .frame {
-  background-color: black;
+  color: white;
   margin: 0 auto;
   min-height: 100vh;
   max-width: 800px;
+  padding: 10px;
 }
 
 .container0 {
-  left: 200px;
   position: relative;
-  width: 300px;
   background-color: white;
 
   .item0 {
-    background-color: red;
     border-radius: 4px;
     height: 200px;
     width: 100%;
+  }
+}
+
+.container1 {
+  position: relative;
+  background-color: white;
+
+  .item1 {
+    border-radius: 4px;
+    height: 200px;
+    width: 100%;
+  }
+
+  .arrow {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    display: flex;
+    width: 20px;
+
+    &.left {
+      left: 0;
+    }
+
+    &.right {
+      right: 0;
+    }
   }
 }
