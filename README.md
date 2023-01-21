@@ -8,3 +8,6 @@ Most of carousel UI libarries are usually difficult to customize the UI elements
 
 # How to use
 Please check files in `src/CarouselBase` and examples in `App.tsx`. You can copy the files of `CarouselBase` component to your project. I do not have time to make a npm module to share this widely.
+
+# Limitation
+The width of each item in a carousel must be the same.
