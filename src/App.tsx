@@ -9,7 +9,7 @@ function App() {
 
   return (
     <div className={style.frame}>
-      <h1>Basic</h1>
+      <h1>Pure base</h1>
       <CarouselBase
         slideTime={500}
         itemsPerPage={2}
