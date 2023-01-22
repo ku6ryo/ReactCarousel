@@ -30,7 +30,7 @@ export function CustomizedButtonCarousel({
       <div className={style.frame}>
         <CarouselBase
           slideTime={500}
-          itemsPerPage={1}
+          itemsPerPage={2}
           index={index}
           rightExposure="50px"
           leftExposure="50px"

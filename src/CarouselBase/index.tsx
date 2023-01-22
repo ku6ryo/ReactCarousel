@@ -1,5 +1,6 @@
 import { ReactElement, useEffect, useMemo, useRef, useState, } from "react"
 import style from "./style.module.scss"
+import { v4 as uuid } from "uuid"
 
 function extractPageItems(mainIndex: number, items: ReactElement[]) {
   const startIndex = mainIndex - items.length - 1
@@ -60,18 +61,17 @@ export function CarouselBase({
     return Array.isArray(children) ? children.length : 1
   }, [children])
 
-  const items = useMemo(() => {
+  const itemsWithIds = useMemo(() => {
     if (!children) {
       return []
     }
-    if (Array.isArray(children)) {
-      return extractPageItems(prevIndex, children)
-    } else {
-      return extractPageItems(prevIndex, [children])
-    }
+    const items = extractPageItems(prevIndex, Array.isArray(children) ? children : [children])
+    return items.map(item => {
+      return { item, id: uuid() }
+    })
   }, [children, prevIndex])
 
-  const widthPerItem = 100 / items.length
+  const widthPerItem = 100 / itemsWithIds.length
 
   useEffect(() => {
     if (sliderRef.current) {
@@ -107,16 +107,16 @@ export function CarouselBase({
           className={style.slider}
           style={{
             left: `calc(${-100 / itemsPerPage * (numChildren + 1)}%`,
-            gridTemplateColumns: Array(items.length).fill(null).map(() => "1fr").join(" "),
+            gridTemplateColumns: Array(itemsWithIds.length).fill(null).map(() => "1fr").join(" "),
             transition: `${slideTime}s`,
-            width: `${items.length / itemsPerPage * 100}%`
+            width: `${itemsWithIds.length / itemsPerPage * 100}%`
           }}
           ref={sliderRef}
         >
-          {items.map(item => {
+          {itemsWithIds.map((item) => {
             return (
-              <div className={style.item}>
-                <div className={style.buffer}>{item}</div>
+              <div key={item.id} className={style.item}>
+                <div className={style.buffer}>{item.item}</div>
               </div>
             )
           })}

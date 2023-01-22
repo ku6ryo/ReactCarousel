@@ -1,6 +1,6 @@
 import { CarouselBase } from "./CarouselBase"
 import style from "./App.module.scss"
-import { useState } from "react"
+import { useState, } from "react"
 import { AutoPagingCarousel } from "./AutoPagingCarousel"
 import { CustomizedButtonCarousel } from "./CutomizedButtonCarousel"
 
