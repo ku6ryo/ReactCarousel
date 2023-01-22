@@ -1,12 +1,11 @@
 import { CarouselBase } from "./CarouselBase"
 import style from "./App.module.scss"
 import { useState } from "react"
-import { BiLeftArrow, BiRightArrow } from "react-icons/bi"
 import { AutoPagingCarousel } from "./AutoPagingCarousel"
+import { CustomizedButtonCarousel } from "./CutomizedButtonCarousel"
 
 function App() {
-  const [index0, setIndex0] = useState(0)
-  const [index1, setIndex1] = useState(0)
+  const [index, setIndex] = useState(0)
 
   return (
     <div className={style.frame}>
@@ -14,7 +13,7 @@ function App() {
       <CarouselBase
         slideTime={500}
         itemsPerPage={2}
-        index={index0}
+        index={index}
         rightExposure="10%"
         leftExposure="10%"
       >
@@ -23,43 +22,18 @@ function App() {
         <div className={style.item0} style={{ background: "yellow", height: "100px"}} />
       </CarouselBase>
       <div>
-        <button onClick={() => setIndex0((v) => v - 2)}>{"<"}</button>
-        <button onClick={() => setIndex0((v) => v + 2)}>{">"}</button>
+        <button onClick={() => setIndex((v) => v - 1)}>{"<"}</button>
+        <button onClick={() => setIndex((v) => v + 1)}>{">"}</button>
       </div>
-      <h1>Customized</h1>
-      <div className={style.container1}>
-        <CarouselBase
-          slideTime={500}
-          itemsPerPage={1}
-          index={index1}
-          rightExposure="50px"
-          leftExposure="50px"
-        >
-          <div className={style.item1} style={{ background: "red"}}></div>
-          <div className={style.item1} style={{ background: "blue"}}></div>
-          <div className={style.item1} style={{ background: "yellow"}}></div>
-        </CarouselBase>
-        <div
-          className={[style.arrow, style.left].join(" ")}
-        >
-          <button
-            onClick={() => setIndex1((v) => v - 2)}
-          >
-            <BiLeftArrow/>
-          </button>
-        </div>
-        <div
-          className={[style.arrow, style.right].join(" ")}
-        >
-          <button
-            onClick={() => setIndex1((v) => v + 2)}
-          >
-            <BiRightArrow/>
-          </button>
-        </div>
-      </div>
+      <h1>Customized Button</h1>
+      <CustomizedButtonCarousel>
+        <div className={style.item2} style={{ background: "red"}}></div>
+        <div className={style.item2} style={{ background: "blue"}}></div>
+        <div className={style.item2} style={{ background: "yellow"}}></div>
+        <div className={style.item2} style={{ background: "limegreen"}}></div>
+      </CustomizedButtonCarousel>
       <h1>Auto paging</h1>
-      <AutoPagingCarousel interval={1000}>
+      <AutoPagingCarousel interval={2000}>
         <div className={style.item2} style={{ background: "red"}}></div>
         <div className={style.item2} style={{ background: "blue"}}></div>
         <div className={style.item2} style={{ background: "yellow"}}></div>

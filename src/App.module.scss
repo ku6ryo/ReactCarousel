@@ -17,30 +17,10 @@
   }
 }
 
-.container1 {
-  position: relative;
-
-  .item1 {
-    border-radius: 4px;
-    height: 200px;
-    width: 100%;
-  }
-
-  .arrow {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    display: flex;
-    width: 20px;
-
-    &.left {
-      left: 0;
-    }
-
-    &.right {
-      right: 0;
-    }
-  }
+.item1 {
+  border-radius: 4px;
+  height: 200px;
+  width: 100%;
 }
 
 .item2 {

@@ -1,6 +1,6 @@
-import { ReactElement, useEffect, useState, } from "react"
+import { MouseEventHandler, ReactElement, useCallback, useEffect, useRef, useState, } from "react"
 import style from "./style.module.scss"
-import { CarouselBase } from "../CarouselBase"
+import { CarouselBase, SlideState } from "../CarouselBase"
 
 type Props = {
   children?: ReactElement[] | ReactElement
@@ -12,14 +12,29 @@ export function AutoPagingCarousel({
   interval,
 }: Props) {
 
+  const stateRef = useRef(SlideState.Stopped)
   const [index, setIndex] = useState(0)
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setIndex((v) => v + 1)
+      if (stateRef.current === SlideState.Stopped) {
+        setIndex((v) => v + 1)
+      }
     }, interval)
     return () => clearInterval(intervalId)
   }, [interval])
+
+  const onArrowClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+    if (stateRef.current === SlideState.Sliding) {
+      return
+    }
+    const direction = Number(e.currentTarget.dataset.direction)
+    setIndex((v) => v + direction)
+  }
+
+  const onStateChange = useCallback((s: SlideState) => {
+    stateRef.current = s
+  }, [])
 
   return (
     <div className={style.frame}>
@@ -29,9 +44,14 @@ export function AutoPagingCarousel({
         index={index}
         rightExposure="50px"
         leftExposure="50px"
+        onStateChange={onStateChange}
       >
         {children}
       </CarouselBase>
+      <div>
+        <button onClick={onArrowClick} data-direction="-1">{"<"}</button>
+        <button onClick={onArrowClick} data-direction="1">{">"}</button>
+      </div>
     </div>
   )
 }

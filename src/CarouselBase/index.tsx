@@ -15,6 +15,11 @@ function extractPageItems(mainIndex: number, items: ReactElement[]) {
   return extracted
 }
 
+export enum SlideState {
+  Stopped = "stopped",
+  Sliding = "sliding"
+}
+
 type Props = {
   children?: ReactElement[] | ReactElement
   itemsPerPage: number
@@ -27,7 +32,7 @@ type Props = {
   // How much the previous item is exposed.
   rightExposure?: string
   // Fires on sliding is complete
-  onSlideComplete?: (index: number) => void
+  onStateChange?: (status: SlideState) => void
 }
 
 /**
@@ -40,7 +45,7 @@ export function CarouselBase({
   index,
   leftExposure,
   rightExposure,
-  onSlideComplete,
+  onStateChange,
 }: Props) {
 
   const leftEx = useMemo(() => leftExposure || "0", [leftExposure])
@@ -70,6 +75,7 @@ export function CarouselBase({
 
   useEffect(() => {
     if (sliderRef.current) {
+      onStateChange?.(SlideState.Sliding)
       setSliding(true)
       const diffIndex = index - prevIndex
       sliderRef.current.style.transition = `${slideTime / 1000}s`
@@ -80,11 +86,11 @@ export function CarouselBase({
         }
         setPrevIndex(index)
         setSliding(false)
-        onSlideComplete?.(index)
+        onStateChange?.(SlideState.Stopped)
       }, slideTime)
     } else {
       setPrevIndex(index)
-      onSlideComplete?.(index)
+      onStateChange?.(SlideState.Stopped)
     }
   }, [index])
   

@@ -1,0 +1,27 @@
+
+.frame {
+  position: relative;
+
+  .arrow {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    display: flex;
+    width: 40px;
+
+    &.left {
+      left: 0;
+    }
+
+    &.right {
+      right: 0;
+    }
+
+    button {
+      background-color: rgba(0, 0, 0, .6);
+      border: none;
+      color: white;
+      width: 100%;
+    }
+  }
+}
